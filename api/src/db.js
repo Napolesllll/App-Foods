@@ -1,5 +1,4 @@
-//libreria para variables de entorno que solo concera mi server por seguridad
-require('dotenv').config();
+require('dotenv').config();  // libreria para variables de entorno que solo conoce mi server
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
@@ -31,13 +30,14 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Recipe, Diet } = sequelize.models;
+const { Recipe , TypeDiet} = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
+Recipe.belongsToMany(TypeDiet, {through: 'recipe_typeDiet'})
+TypeDiet.belongsToMany(Recipe, {through: 'recipe_typeDiet'})
 
-// db expota todos los modelos 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,     // para importart la conexión { conn } = require('./db.js');

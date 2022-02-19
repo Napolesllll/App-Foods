@@ -4,30 +4,34 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('recipe', {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+    id : {
+      type: DataTypes.UUID,  //identificador unico      
+      defaultValue: DataTypes.UUIDV4,    
       allowNull: false,
-      primaryKey: true
+      primaryKey : true
     },
-    nombre: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    resumen_del_plato: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    puntuacion: {
-      type: DataTypes.STRING,
+    summary:{
+      type : DataTypes.TEXT,
+      allowNull: false
     },
-    comida_saludable: {
-      type: DataTypes.STRING,
-
+    spoonacularScore : {
+      type: DataTypes.STRING
     },
-    paso_a_paso: {
-      type: DataTypes.STRING,
-
+    healthScore : {
+      type: DataTypes.STRING
+    },
+    analyzedInstructions:{
+      type : DataTypes.TEXT,
+    },
+    createdInDb:{                                  // esta propiedad la van a tenr solo las comidas que esten en la BD
+      type : DataTypes.BOOLEAN,                    // por lo que es mas facil buscarlas 
+      allowNull: false,
+      defaultValue: true
     }
+
   });
 };
